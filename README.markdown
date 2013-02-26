@@ -1,6 +1,13 @@
 # Quickstart 
 
-    time mongo yourdb --eval 'var collection="YourCollection"; var query = {YourQuery}' variety.js | sed -n 's/^> '//p' | column -t > schema.txt
+schema of YourCollection:
+
+    time mongo yourdb --eval 'var collection="YourCollection";' variety.js | sed -n 's/^> '//p' | column -t | sort > tmp/schema.txt
+
+schema of YourCollection for particular query results:
+
+    time mongo yourdb --eval 'var collection="YourCollection"; var query = {YourQuery}' variety.js | sed -n 's/^> '//p' | column -t | sort > tmp/schema.txt
+
 
 # Meet Variety, a Schema Analyzer for MongoDB ###
 This lightweight tool helps you get a sense of your application's schema, as well as any outliers to that schema. Particularly useful when you inherit a codebase with data dump and want to quickly learn how the data's structured. Also useful for finding rare keys.
