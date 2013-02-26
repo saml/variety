@@ -181,8 +181,12 @@ var addVarietyResults = function(result) {
   }
 }
 
+if (typeof query === 'undefined') {
+    query = {};
+}
+
 // main cursor
-db[collection].find().sort({_id: -1}).limit(limit).forEach(function(obj) {
+db[collection].find(query).sort({_id: -1}).limit(limit).forEach(function(obj) {
   var recordResult = {};
   for (var key in obj) {
     if(obj.hasOwnProperty(key)) {
@@ -236,6 +240,7 @@ resultsDB[resultsCollectionName].find({}).forEach(function(key) {
 });
 
 var sortedKeys = resultsDB[resultsCollectionName].find({}).sort({totalOccurrences: -1});
+print("Key\tType\tOccurrences\tPercentage");
 sortedKeys.forEach(function(key) {
-  print(tojson(key, '', true));
+    print('> ' + key._id.key + '\t' + key.value.type + '\t' + key.totalOccurrences + '\t' + key.percentContaining);
 });
